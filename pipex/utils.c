@@ -6,22 +6,17 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/14 15:32:21 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/14 16:53:28 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	validate_files(char *file1, char *file2)
+void	validate_files(char *file1)
 {
 	if (access(file1, F_OK | R_OK) != 0)
 	{
 		perror("Error: Cannot access input file");
-		exit(1);
-	}
-	if (access(file2, F_OK | W_OK) != 0)
-	{
-		perror("Error: Cannot access output file");
 		exit(1);
 	}
 }

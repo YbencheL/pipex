@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:14 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/14 15:24:05 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/14 16:53:57 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	open_files(char **argv, int *fd1, int *fd2)
 		perror("Error opening input file");
 		exit(1);
 	}
-	*fd2 = open(argv[4], O_WRONLY);
+	*fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (*fd2 == -1)
 	{
 		perror("Error opening output file");
@@ -46,7 +46,7 @@ void	parent_process(char **argv, int *pipefd, char **env)
 {
 	int	fd2;
 
-	fd2 = open(argv[4], O_WRONLY);
+	fd2 = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd2 == -1)
 	{
 		perror("Error opening output file");
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 		write(2, "Usage: ./pipex file1 cmd1 cmd2 file2\n", 38);
 		return (1);
 	}
-	validate_files(argv[1], argv[4]);
+	validate_files(argv[1]);
 	create_pipe_and_fork(argv, pipefd, env);
 	return (0);
 }
