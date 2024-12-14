@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/14 14:26:25 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/11/04 19:17:22 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/14 13:37:37 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*dup;
-	size_t		i;
-	size_t	len;
+	size_t	i;
 
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
 	i = 0;
-	while (i < len)
-    {
-        dup[i] = str[i];
-        i++;
-    }
-	dup[len] = '\0';
-	return (dup);
+	while (i < n)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		if (s1[i] == '\0' || s2[i] == '\0')
+			break ;
+		i++;
+	}
+	return (0);
 }
 
-/*
-int main()
+/*int main()
 {
-	char str[] = "hello world";
-	char *duplicate;
-	duplicate = ft_strdup(str);
-	printf("%s", duplicate);
-	if(duplicate)
-		free(duplicate);
-}
-*/
+	char *s1 = "Hello\0hello";
+	char *s2 = "Hellohelli\0";
+	printf("%d\n", ft_strncmp(s1, s2, 12));
+	return (0);
+}*/

@@ -1,45 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/14 14:26:25 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/10/22 08:39:43 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/14 15:32:30 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	char	*dup;
-	size_t		i;
+	size_t	i;
 	size_t	len;
 
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
 	i = 0;
-	while (i < len)
-    {
-        dup[i] = str[i];
-        i++;
-    }
-	dup[len] = '\0';
-	return (dup);
+	len = ft_strlen(src);
+	if (size == 0)
+		return (len);
+	while (src[i] != '\0' && i < size - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (len);
 }
-
-/*
-int main()
-{
-	char str[] = "hello world";
-	char *duplicate;
-	duplicate = ft_strdup(str);
-	printf("%s", duplicate);
-	if(duplicate)
-		free(duplicate);
-}
-*/
