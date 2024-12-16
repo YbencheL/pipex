@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/15 15:48:58 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/11/10 09:50:31 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/15 17:41:54 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+int	ft_putptr(unsigned long addr)
 {
-	char	*dup;
-	size_t	i;
-	size_t	len;
+	int	count;
 
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		dup[i] = str[i];
-		i++;
-	}
-	dup[len] = '\0';
-	return (dup);
+	count = 0;
+	if (addr == 0)
+		return (ft_putstr("0x0"));
+	count += ft_putstr("0x");
+	count += ft_puthexo(addr, 0);
+	return (count);
 }

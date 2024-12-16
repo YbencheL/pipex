@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_puthexo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/15 15:48:58 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/11/09 15:09:01 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/15 17:41:44 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+int	ft_puthexo(unsigned long n, int upper)
 {
-	char	*dup;
-	size_t	i;
-	size_t	len;
+	char	*base;
+	int		count;
 
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	count = 0;
+	if (upper == 1)
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
+	if (n > 15)
 	{
-		dup[i] = str[i];
-		i++;
+		count += ft_puthexo(n / 16, upper);
+		count += ft_putchar(base[n % 16]);
 	}
-	dup[len] = '\0';
-	return (dup);
+	else
+		count += ft_putchar(base[n]);
+	return (count);
 }

@@ -6,36 +6,77 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/14 16:53:28 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:30:18 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	validate_files(char *file1)
+void	ft_free_path(char **paths)
 {
-	if (access(file1, F_OK | R_OK) != 0)
+	int	i;
+
+	i = 0;
+	while (paths[i])
+		free(paths[i++]);
+	free(paths);
+}
+
+char	*find_command_path(char *cmd, char **env)
+{
+	char	**paths;
+	char	*path;
+	char	*command_path;
+	int		i;
+
+	while (*env && ft_strncmp(*env, "PATH=", 5) != 0)
+		env++;
+	if (!*env)
+		return (NULL);
+	paths = ft_split(*env + 5, ':');
+	i = -1;
+	while (paths[++i])
 	{
-		perror("Error: Cannot access input file");
-		exit(1);
+		path = ft_strjoin(paths[i], "/");
+		command_path = ft_strjoin(path, cmd);
+		free(path);
+		if (access(command_path, X_OK) == 0)
+		{
+			ft_free_path(paths);
+			return (command_path);
+		}
+		free(command_path);
 	}
+	ft_free_path(paths);
+	return (NULL);
 }
 
 void	execute_command(char *cmd, int input_fd, int output_fd, char **env)
 {
-	char	command_path[256];
+	char	*command_path;
 	char	**command;
 
-	ft_strlcpy(command_path, "/usr/bin/", sizeof(command_path));
-	ft_strlcat(command_path, cmd, sizeof(command_path));
-	command = ft_split(command_path, ' ');
+	command = ft_split(cmd, ' ');
+	if (access(command[0], X_OK) == 0)
+		command_path = command[0];
+	else {
+	command_path = find_command_path(command[0], env);
+	}
+	if (!command_path)
+	{
+		ft_printf("Error: Command not found: %s\n", strerror(errno));
+		ft_free_path(command);
+		exit(1);
+	}
 	if (input_fd != -1)
 		dup2(input_fd, 0);
 	if (output_fd != -1)
 		dup2(output_fd, 1);
 	close(input_fd);
 	close(output_fd);
-	execve(command[0], command, env);
-	perror("Error in execve");
+	execve(command_path, command, env);
+	ft_printf("Error in execve: %s\n", strerror(errno));
+	free(command_path);
+	ft_free_path(command);
 	exit(1);
 }

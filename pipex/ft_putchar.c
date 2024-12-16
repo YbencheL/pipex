@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/15 15:48:58 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/10/24 16:40:41 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/15 17:41:41 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+int	ft_putchar(char c)
 {
-	char	*dup;
-	size_t	i;
-	size_t	len;
-
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		dup[i] = str[i];
-		i++;
-	}
-	dup[len] = '\0';
-	return (dup);
+	write (1, &c, 1);
+	return (1);
 }

@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/15 15:48:58 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/11/09 17:29:27 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/15 17:41:47 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+int	ft_putnbr_unsigned(unsigned int n)
 {
-	char	*dup;
-	size_t	i;
-	size_t	len;
-
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	if (n > 9)
 	{
-		dup[i] = str[i];
-		i++;
+		ft_putnbr_unsigned(n / 10);
+		ft_putchar((n % 10) + '0');
 	}
-	dup[len] = '\0';
-	return (dup);
+	else
+		ft_putchar(n + '0');
+	return (0);
 }

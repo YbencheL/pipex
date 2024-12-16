@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_intlen_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:47:07 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/15 15:48:58 by ybenchel         ###   ########.fr       */
+/*   Created: 2024/11/09 17:33:00 by ybenchel          #+#    #+#             */
+/*   Updated: 2024/12/15 17:41:31 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strdup(const char *str)
+int	ft_intlen_base(unsigned int n, int base)
 {
-	char	*dup;
-	size_t	i;
-	size_t	len;
+	int	len;
 
-	len = ft_strlen(str);
-	dup = malloc((len + 1) * sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	len = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
 	{
-		dup[i] = str[i];
-		i++;
+		len++;
+		n /= base;
 	}
-	dup[len] = '\0';
-	return (dup);
+	return (len);
 }
