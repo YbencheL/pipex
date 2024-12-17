@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/16 16:30:18 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:39:01 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ void	execute_command(char *cmd, int input_fd, int output_fd, char **env)
 	command = ft_split(cmd, ' ');
 	if (access(command[0], X_OK) == 0)
 		command_path = command[0];
-	else {
-	command_path = find_command_path(command[0], env);
-	}
+	else
+		command_path = find_command_path(command[0], env);
 	if (!command_path)
 	{
 		ft_printf("Error: Command not found: %s\n", strerror(errno));
