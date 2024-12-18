@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:14 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/17 12:39:14 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:03:43 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	child_process(char **argv, int *pipefd, char **env)
 	if (fd1 == -1)
 	{
 		exit(1);
-	}
+	} else
+		dup2(fd1, 0);
+	if (pipefd[1] != -1)
+		dup2(pipefd[1], 1);
 	close(pipefd[0]);
-	execute_command(argv[2], fd1, pipefd[1], env);
+	execute_command(argv[2], env);
 	close(fd1);
-	exit(0);
 }
 
 void	parent_process(char **argv, int *pipefd, char **env)
@@ -36,11 +38,13 @@ void	parent_process(char **argv, int *pipefd, char **env)
 	{
 		ft_printf("Error opening output file: %s\n", strerror(errno));
 		exit(1);
-	}
+	} else
+		dup2(pipefd[0], 0);
+	if (fd2 != -1)
+		dup2(fd2, 1);
 	close(pipefd[1]);
-	execute_command(argv[3], pipefd[0], fd2, env);
+	execute_command(argv[3], env);
 	close(fd2);
-	exit(0);
 }
 
 void	create_pipe_and_fork(char **argv, int *pipefd, char **env)
@@ -78,7 +82,10 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	}
 	if (access(argv[1], F_OK | R_OK) != 0)
+	{
 		ft_printf("Error: %s: %s\n", strerror(errno), argv[1]);
+		// exit(1);
+	}
 	create_pipe_and_fork(argv, pipefd, env);
 	return (0);
 }

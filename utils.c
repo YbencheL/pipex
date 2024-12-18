@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/17 11:39:01 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/18 09:53:40 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_command_path(char *cmd, char **env)
 	return (NULL);
 }
 
-void	execute_command(char *cmd, int input_fd, int output_fd, char **env)
+void	execute_command(char *cmd, char **env)
 {
 	char	*command_path;
 	char	**command;
@@ -60,19 +60,13 @@ void	execute_command(char *cmd, int input_fd, int output_fd, char **env)
 	if (access(command[0], X_OK) == 0)
 		command_path = command[0];
 	else
-		command_path = find_command_path(command[0], env);
+	command_path = find_command_path(command[0], env);
 	if (!command_path)
 	{
 		ft_printf("Error: Command not found: %s\n", strerror(errno));
 		ft_free_path(command);
 		exit(1);
 	}
-	if (input_fd != -1)
-		dup2(input_fd, 0);
-	if (output_fd != -1)
-		dup2(output_fd, 1);
-	close(input_fd);
-	close(output_fd);
 	execve(command_path, command, env);
 	ft_printf("Error in execve: %s\n", strerror(errno));
 	free(command_path);

@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:41 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/15 17:48:11 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/18 09:53:18 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *str);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	execute_command(char *cmd, int input_fd, int output_fd, char **env);
+void	execute_command(char *cmd, char **env);
 char	*ft_strjoin(const char *s1, const char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_printf(const char *format, ...);
