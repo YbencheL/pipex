@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:14 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/21 20:21:26 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/21 21:05:54 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	create_pipe_and_fork(char **argv, int *pipefd, char **env)
 
 	if (pipe(pipefd) == -1)
 	{
-		ft_printf("Error in pipe\n");
+		perror("Error in pipe\n");
 		exit(1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
-		ft_printf("Error in fork\n");
+		perror("Error in fork\n");
 		exit(1);
 	}
 	if (pid == 0)

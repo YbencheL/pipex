@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/21 20:37:36 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/21 21:03:36 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_command_path(char *cmd, char **env)
 	return (NULL);
 }
 
-void	print_error(char *msg, char *cmd)
+void	print_errors(char *msg, char *cmd)
 {
 	write(2, "Error: ", 7);
 	write(2, msg, ft_strlen(msg));
@@ -72,16 +72,16 @@ void	execute_command(char *cmd, int input_f, int output_f, char **env)
 		command_path = find_command_path(command[0], env);
 	if (!command_path)
 	{
-		print_error(strerror(errno), command[0]);
+		print_errors("command not found", command[0]);
 		ft_free_path(command);
-		exit(1);
+		exit(127);
 	}
 	dup2(input_f, 0);
 	dup2(output_f, 1);
 	close(input_f);
 	close(output_f);
 	execve(command_path, command, env);
-	print_error("Error in execve", strerror(errno));
+	print_errors("Error in execve", strerror(errno));
 	if (command_path != command[0])
 		free(command_path);
 	ft_free_path(command);
