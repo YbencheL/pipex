@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:41 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/19 15:34:20 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:22:52 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <stdarg.h>
 # include <limits.h>
+# include <stdio.h>
 
 char	**ft_split(char const *s, char c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
