@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/18 09:53:40 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:34:57 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ char	*find_command_path(char *cmd, char **env)
 			return (command_path);
 		}
 		free(command_path);
-	}
+	} 
 	ft_free_path(paths);
 	return (NULL);
 }
 
-void	execute_command(char *cmd, char **env)
+void	execute_command(char *cmd, int input_f, int output_f, char **env)
 {
 	char	*command_path;
 	char	**command;
@@ -60,16 +60,21 @@ void	execute_command(char *cmd, char **env)
 	if (access(command[0], X_OK) == 0)
 		command_path = command[0];
 	else
-	command_path = find_command_path(command[0], env);
+		command_path = find_command_path(command[0], env);
 	if (!command_path)
 	{
 		ft_printf("Error: Command not found: %s\n", strerror(errno));
 		ft_free_path(command);
 		exit(1);
 	}
+	dup2(input_f, 0);
+	dup2(output_f, 1);
+	close(input_f);
+	close(output_f);
 	execve(command_path, command, env);
 	ft_printf("Error in execve: %s\n", strerror(errno));
-	free(command_path);
+	if (command_path != command[0])
+		free(command_path);
 	ft_free_path(command);
 	exit(1);
 }
