@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:14 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/21 21:05:54 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:08:59 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	parent_process(char **argv, int *pipefd, char **env)
 	}
 	close(pipefd[1]);
 	execute_command(argv[3], pipefd[0], fd2, env);
-	close(fd2);
 }
 
 void	create_pipe_and_fork(char **argv, int *pipefd, char **env)

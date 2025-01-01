@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 15:23:30 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/21 21:03:36 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/26 17:14:22 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ void	execute_command(char *cmd, int input_f, int output_f, char **env)
 	close(input_f);
 	close(output_f);
 	execve(command_path, command, env);
-	print_errors("Error in execve", strerror(errno));
-	if (command_path != command[0])
-		free(command_path);
 	ft_free_path(command);
 	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: ybenchel <ybenchel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 15:45:41 by ybenchel          #+#    #+#             */
-/*   Updated: 2024/12/21 17:22:52 by ybenchel         ###   ########.fr       */
+/*   Updated: 2024/12/27 09:49:25 by ybenchel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
 # include <string.h>
 # include <stdarg.h>
-# include <limits.h>
 # include <stdio.h>
 
 char	**ft_split(char const *s, char c);
