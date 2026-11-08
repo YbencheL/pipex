@@ -66,7 +66,3 @@ This project works with several Unix system calls and concepts, including:
 - `pipex.h` — shared declarations
 - `ft_*.c` — supporting string and formatted-output utilities
 - `Makefile` — build rules
-
-## License
-
-No license is currently specified for this repository.
